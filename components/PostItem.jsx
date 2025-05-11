@@ -6,6 +6,9 @@ import { shortAddress } from "../utils";
 import { ExternalLinkIcon, CommentsIcon } from "./Icons";
 
 export default function PostItem({post}) {
+  // Ensure consistent text truncation by using a fixed length
+  const truncatedBody = post.content.body ? post.content.body.slice(0, 180) + '..' : '';
+
   return (
     <div className="[&:nth-child(-n+4)]:-order-1 bg-[#F9FAFB] rounded border border-slate-200">
       <div className="relative p-5">
@@ -18,7 +21,7 @@ export default function PostItem({post}) {
                     {post.content.title}
                   </Link>
                 </h2>
-                <p className="text-sm text-secondary">{post.content.body.substring(0,180)}..</p>
+                <p className="text-sm text-secondary">{truncatedBody}</p>
               </div>
               <div className="flex items-center text-sm text-primary flex flex-row space-x-1.5">
                 <User details={post.creator_details} height={35} />
