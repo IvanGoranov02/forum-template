@@ -8,6 +8,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 /** For Markdown support */
 import { marked } from 'marked';
 import parse from 'html-react-parser';
+import { cleanUnicode } from '../utils/cleanUnicode';
 
 export default function ArticleContent({post}) {
   const { orbis, user } = useOrbis();
@@ -26,7 +27,7 @@ export default function ArticleContent({post}) {
     }
   };
 
-  const markdownContent = post.content.body.replace(/\n/g, '  \n');
+  const markdownContent = cleanUnicode(post.content.body).replace(/\n/g, '  \n');
   const htmlContent = marked(markdownContent);
   const reactComponent = parse(htmlContent, { replace: replacePreWithSyntaxHighlighter });
 
